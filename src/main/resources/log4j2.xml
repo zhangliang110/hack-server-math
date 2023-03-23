@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="OFF">
+    <properties>
+        <property name="log.pattern">${sys:local.host.name}|${sys:local.ip}|%d{yyyy-MM-dd
+            HH:mm:ss}|%-5level|%thread|%X{TraceId}|%logger{10}|%msg%n
+        </property>
+    </properties>
+
+    <appenders>
+        <Console name="stdout" target="SYSTEM_OUT">
+            <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout charset="UTF-8" pattern="${log.pattern}"/>
+        </Console>
+    </appenders>
+
+    <loggers>
+        <root level="debug">
+            <appender-ref ref="stdout"/>
+        </root>
+    </loggers>
+</configuration>
