@@ -1,4 +1,4 @@
-package zl.math;
+package zl.math.leetcode;
 
 /**
  * Description : 
