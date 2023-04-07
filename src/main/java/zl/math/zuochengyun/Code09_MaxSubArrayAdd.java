@@ -9,10 +9,10 @@ package zl.math.zuochengyun;
 public class Code09_MaxSubArrayAdd {
 
     public static void main(String[] args) {
-        int[] arr = new int[]{1, 2, -1, 10};
+        int[] arr = new int[]{-10};
         int total = maxSubArrayAdd(arr);
         System.out.println(total);
-    }
+     }
 
     /**
      * 最大子数组累加和
