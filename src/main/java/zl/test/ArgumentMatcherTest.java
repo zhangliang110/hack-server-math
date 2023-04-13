@@ -6,6 +6,10 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.time.Clock;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +43,12 @@ public class ArgumentMatcherTest {
         assertThat(strList.get(0), equalTo("100"));
 
         assertThat(strList.get(1), nullValue());
+        LocalDateTime expireDate = LocalDateTime.of(2024, 10, 15, 12, 30, 30);
+        Clock gmt = Clock.system(ZoneId.of("GMT"));
+        boolean before = expireDate.isBefore(LocalDateTime.now(gmt));
+        LocalDateTime now = LocalDateTime.now(gmt);
+        System.out.println(now.toString());
+
     }
 
     @Test
