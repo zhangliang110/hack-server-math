@@ -7,31 +7,33 @@ import java.util.Objects;
 /**
  * Definition for singly-linked list.
  * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode() {}
- *     ListNode(int val) { this.val = val; }
- *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * int val;
+ * ListNode next;
+ * ListNode() {}
+ * ListNode(int val) { this.val = val; }
+ * ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
 public class LeetCode_86 {
     public static void main(String[] args) {
 
         List<Integer> initHeadList = Arrays.asList(1, 4, 3, 2, 5, 2);
+
         ListNode head = null;
+        ListNode current = null;
         LeetCode_86 leetCode_86 = new LeetCode_86();
-        ListNode tmpNode = new ListNode();
         for (Integer ele : initHeadList) {
             ListNode nowNode = new ListNode(ele);
             if (Objects.isNull(head)) {
                 head = nowNode;
-                head.next = tmpNode;
+                current = nowNode;
             } else {
-                head.next = nowNode;
-                head = head.next;
+                current.next = nowNode;
+                current = nowNode;
+
             }
         }
-        ListNode node = leetCode_86.partition(head, 2);
+        ListNode node = leetCode_86.partition(head, 3);
 
     }
 
@@ -40,34 +42,54 @@ public class LeetCode_86 {
         // 如果 i 小于index 则不需要变化
         // 如果 i 大于index 且 i元素小于val 则变
         //反之就需要进行变化
-        ListNode smaller = new ListNode();
-        ListNode bigger = new ListNode();
+        ListNode smaller = null;
+        ListNode bigger = null;
+        ListNode currentBigger = null;
+        ListNode currentSmaller = null;
         while (Objects.nonNull(head)) {
-            ListNode nextNode = new ListNode();
+            ListNode nextNode = new ListNode(head.val);
             nextNode.val = head.val;
             if (head.val >= x) {
-                if (bigger.val == 0) {
+                if (Objects.isNull(bigger)) {
                     //bigger 的第一个
-                    bigger.val = head.val;
+                    bigger = nextNode;
+                    currentBigger = nextNode;
                 } else {
-                    bigger = Objects.nonNull(bigger.next) ? bigger.next : bigger;
-                    bigger.next = nextNode;
+                    currentBigger.next = nextNode;
+                    currentBigger = nextNode;
+
                 }
             } else {
-                if (smaller.val == 0) {
+                if (Objects.isNull(smaller)) {
                     //bigger 的第一个
-                    smaller.val = head.val;
+                    smaller = nextNode;
+                    currentSmaller = nextNode;
                 } else {
-                    smaller = Objects.nonNull(smaller.next) ? smaller.next : smaller;
-                    smaller.next = nextNode;
+                    currentSmaller.next = nextNode;
+                    currentSmaller = nextNode;
                 }
             }
             head = head.next;
         }
+        if (Objects.isNull(smaller) && Objects.isNull(bigger)) {
+            return null;
+        }
+        if (Objects.isNull(bigger)) {
+            return smaller;
+        }
+        if (Objects.isNull(smaller)) {
+            return bigger;
+        }
+        ListNode tempSmallerNode = smaller;
+        while (null != tempSmallerNode.next) tempSmallerNode = tempSmallerNode.next;
         smaller.next = bigger;
+
         return smaller;
     }
 
+    /**
+     * 链表节点
+     */
     static class ListNode {
         int val;
         ListNode next;
