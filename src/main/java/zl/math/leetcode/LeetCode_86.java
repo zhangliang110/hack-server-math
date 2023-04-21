@@ -57,7 +57,6 @@ public class LeetCode_86 {
                 } else {
                     currentBigger.next = nextNode;
                     currentBigger = nextNode;
-
                 }
             } else {
                 if (Objects.isNull(smaller)) {
@@ -82,7 +81,7 @@ public class LeetCode_86 {
         }
         ListNode tempSmallerNode = smaller;
         while (null != tempSmallerNode.next) tempSmallerNode = tempSmallerNode.next;
-        smaller.next = bigger;
+        tempSmallerNode.next = bigger;
 
         return smaller;
     }
