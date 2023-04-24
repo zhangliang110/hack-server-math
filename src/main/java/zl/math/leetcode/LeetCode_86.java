@@ -1,5 +1,6 @@
 package zl.math.leetcode;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -34,6 +35,7 @@ public class LeetCode_86 {
             }
         }
         ListNode node = leetCode_86.partition(head, 3);
+        System.out.println(node);
 
     }
 
@@ -84,6 +86,34 @@ public class LeetCode_86 {
         tempSmallerNode.next = bigger;
 
         return smaller;
+    }
+
+    public ListNode partition2(ListNode head, int x) {
+        List<Integer> lessOnce = new ArrayList<>();
+        List<Integer> notLessOnce = new ArrayList<>();
+        ListNode copy = head;
+        while(copy!=null){
+            if(copy.val < x){
+                lessOnce.add(copy.val);
+            }
+            else{
+                notLessOnce.add(copy.val);
+            }
+            copy=copy.next;
+        }
+
+        copy = head;
+
+        for(int i=0;i<lessOnce.size();i++){
+            copy.val = lessOnce.get(i);
+            copy=copy.next;
+        }
+
+        for(int i=0;i<notLessOnce.size();i++){
+            copy.val = notLessOnce.get(i);
+            copy=copy.next;
+        }
+        return head;
     }
 
     /**
