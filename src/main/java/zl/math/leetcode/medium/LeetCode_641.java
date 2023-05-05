@@ -1,7 +1,9 @@
 package zl.math.leetcode.medium;
 
+import java.util.Objects;
+
 /**
- * Description : 设计一个双端队列
+ * Description : 设计一个双端队列  基于链表
  * Copyright (c) Feifan
  * Author by ff_wind_zl 创建
  * @version 1.0
@@ -67,21 +69,43 @@ public class LeetCode_641 {
         if (first == null) {
             return false;
         }
-        first = first.next;
-        first.prev = last;
+        Node<Integer> next = first.next;
+        first.item = null;
+        first.next = null;
+        first = next;
+        if (next == null) {
+            last = null;
+        } else {
+            first.prev = null;
+        }
         capacity--;
+        return true;
     }
 
     public boolean deleteLast() {
-
+        if (last == null) {
+            return false;
+        }
+        final Node<Integer> l = last;
+        Node<Integer> prev = l.prev;
+        l.item = null;
+        l.prev = null;
+        last = prev;
+        if (prev == null) {
+            first = null;
+        } else {
+            prev.next = null;
+        }
+        capacity--;
+        return true;
     }
 
     public int getFront() {
-
+        return Objects.isNull(first) ? 0 : first.item;
     }
 
     public int getRear() {
-
+        return Objects.isNull(last) ? 0 : last.item;
     }
 
     public boolean isEmpty() {
@@ -90,5 +114,25 @@ public class LeetCode_641 {
 
     public boolean isFull() {
         return capacity == size;
+    }
+
+    public static void main(String[] args) {
+        LeetCode_641 obj = new LeetCode_641(10);
+        boolean param_1 = obj.insertFront(1);
+        System.out.println(param_1);
+        boolean param_2 = obj.insertLast(2);
+        System.out.println(param_1);
+        boolean param_3 = obj.deleteFront();
+        System.out.println(param_3);
+        boolean param_4 = obj.deleteLast();
+        System.out.println(param_4);
+        int param_5 = obj.getFront();
+        System.out.println(param_5);
+        int param_6 = obj.getRear();
+        System.out.println(param_6);
+        boolean param_7 = obj.isEmpty();
+        System.out.println(param_7);
+        boolean param_8 = obj.isFull();
+        System.out.println(param_8);
     }
 }
